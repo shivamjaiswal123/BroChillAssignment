@@ -55,14 +55,6 @@ class LoginFragment : Fragment() {
             val userRequest = UserRequest("", "", email, pass)
             authViewModel.loginUser(userRequest)
         }
-
-        //if user is already logged in
-        val token = sharedPref.getString("token", null)
-        if (token != null) {
-            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment(token)
-            findNavController().navigate(action)
-        }
-
         return binding.root
     }
 }

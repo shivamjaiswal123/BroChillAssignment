@@ -7,11 +7,17 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/welcomeMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"/>
+
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start"/>
+        android:text="Start"
+        android:layout_marginTop="26dp"/>
 
 </LinearLayout>

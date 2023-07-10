@@ -43,7 +43,7 @@ class RegistrationFragment : Fragment() {
                     putString("token", it.body()?.token.toString())
                     commit()
                 }
-                val action = RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment(it.body()?.token.toString())
+                val action = RegistrationFragmentDirections.actionRegistrationFragmentToWelcomeFragment(it.body()?.token.toString())
                 findNavController().navigate(action)
             }else{
                 Toast.makeText(requireContext(), "Error occurred !!!", Toast.LENGTH_SHORT).show()
@@ -58,6 +58,13 @@ class RegistrationFragment : Fragment() {
 
             val userRequest = UserRequest(firstName, lastName, email, pass)
             authViewModel.registerUser(userRequest)
+        }
+
+        //if user is already logged in
+        val token = sharedPref.getString("token", null)
+        if (token != null) {
+            val action = RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment(token)
+            findNavController().navigate(action)
         }
 
         return binding.root
