@@ -52,9 +52,22 @@ class LoginFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             val email = binding.email.text.toString()
             val pass = binding.password.text.toString()
-            val userRequest = UserRequest("", "", email, pass)
-            authViewModel.loginUser(userRequest)
+
+            //validate email/password
+            if(validateInput(email, pass)){
+                val userRequest = UserRequest("", "", email, pass)
+                authViewModel.loginUser(userRequest)
+            }
         }
         return binding.root
+    }
+
+    private fun validateInput(email: String, pass: String): Boolean {
+        if (email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(requireContext(), "Email/password can not be empty", Toast.LENGTH_SHORT)
+                .show()
+            return false
+        }
+        return true
     }
 }

@@ -34,6 +34,7 @@ class TweetFragment : Fragment() {
         //post a tweet and navigate to home screen
         tweetViewModel.postTweets.observe(viewLifecycleOwner, Observer {
             if(it.isSuccessful){
+                Toast.makeText(requireContext(), "Tweet posted ...", Toast.LENGTH_SHORT).show()
                 val action = TweetFragmentDirections.actionTweetFragmentToHomeFragment(token)
                 findNavController().navigate(action)
             }else{

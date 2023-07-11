@@ -2,6 +2,7 @@ package com.example.brochilltask.views.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,8 +57,11 @@ class RegistrationFragment : Fragment() {
             val email = binding.regEmail.text.toString()
             val pass = binding.regPassword.text.toString()
 
-            val userRequest = UserRequest(firstName, lastName, email, pass)
-            authViewModel.registerUser(userRequest)
+            //validate input
+            if(validateInput(firstName, lastName, email, pass)){
+                val userRequest = UserRequest(firstName, lastName, email, pass)
+                authViewModel.registerUser(userRequest)
+            }
         }
 
         //if user is already logged in
@@ -68,5 +72,23 @@ class RegistrationFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun validateInput(firstName: String, lastName: String, email: String, pass: String): Boolean{
+        if(firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || pass.isEmpty()){
+            Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT)
+                .show()
+            return false
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(requireContext(), "Invalid email !!!", Toast.LENGTH_SHORT).show()
+            return false
+        }else if (pass.length < 6) {
+            Toast.makeText(
+                requireContext(), "Password should contain more than 5 characters",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+        return true
     }
 }

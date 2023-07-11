@@ -28,11 +28,7 @@ class TweetAdapter : RecyclerView.Adapter<TweetAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tweet: TweetResponse) {
             binding.apply {
-                if (tweet.tweet != null) {
-                    tvTweets.text = tweet.tweet
-                } else {
-                    container.visibility = View.GONE
-                }
+                tvTweets.text = tweet.tweet
             }
         }
     }
